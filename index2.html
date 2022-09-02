@@ -26,12 +26,12 @@
 			}
 		</style>
 	</head>
-	<body onkeyup="readKey(event)">
+	<body>
 	
-<div id = "top"> <span class="glyphicon glyphicon-arrow-up" id = "up"> </div>
-<div id = "center"><span id = "left" class="glyphicon glyphicon-arrow-left">    <span id = "right" class="glyphicon glyphicon-arrow-right"></div>
+<div id = "top"> <span class="glyphicon glyphicon-arrow-up" id = "ArrowUp"> </div>
+<div id = "center"><span id = "ArrowLeft" class="glyphicon glyphicon-arrow-left">    <span id = "ArrowRight" class="glyphicon glyphicon-arrow-right"></div>
 		
-			<div id = "bottom"> <span id = "down" class="glyphicon glyphicon-arrow-down"></div>
+			<div id = "bottom"> <span id = "ArrowDown" class="glyphicon glyphicon-arrow-down"></div>
 		<br>
 		<br>
 		<div id = "buttonNTimer"><button onClick = "start()">Go!</button> <span id = "timerBox">Timer Box</span></div>
@@ -42,28 +42,56 @@
 			//so on an interval of one second, its resets the variable to match the event,
 			//and resets the "lock"
 			//so a function on an interval.  Maybe one variable called 'randomDirection' and another called 'locked'.
+
+			var randomNumber = 0;
+			var timerStart = 60;
+
 			function start(){
-			setInterval(everySecond(), 1000);
+				document.getElementById("buttonNTimer").innerHTML = timerStart;
+
+			setInterval(everySecond, 1000);
 		}
 
 			var directions = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
 			function everySecond(){
-				var randomNumber = Math.floor(Math.random() * 4) + 1; 
-				document.body.addEventListener("onkeyup", readKey(event, randomNumber));
+				timerStart --;
+				document.getElementById("buttonNTimer").innerHTML = timerStart;
+				randomNumber = Math.floor(Math.random() * 4) + 1; 
+				
+				//turns the arrow selected by "randomNumber" red.
+				document.getElementById(directions[randomNumber]).style.color = "red";
+				//this works in turning it red
+
+				//this does not work in turning it black
+				for (let i = 0; i < directions.length; i++) 
+				{
+  if (directions[i] != direction[randomNumber])
+  {
+  	document.getElementById(directions[i]).style.color = "black";
+  }
+  //this basicall creates the visual effect I want except I need some kind of check
+  //to make sure it doesn't chose the same step twice.  Fudge this is hard
+}
+
+				document.body.addEventListener("keyup", readKey);
+				
 
 			}
 
-			function readKey(event, randomNumber){
+			function readKey(event, recievedNumber){
+				event.preventDefault();
+
 				console.log(event.key);
 				console.log(randomNumber);
-				//the first one works but randomNumber comes back undefined.  WTF!
-				if(event.key == directions[randomNumber])
-				{
-					score++;
-				}
+				// //the first one works but randomNumber comes back undefined.  WTF!
 
-				body.removeEventListener("onkeyup", readKey(event));
+				// if(event.key == directions[recievedNumber])
+				// {
+				// 	score++;
+				// }
+
+				document.body.removeEventListener("onkeyup", readKey);
 			}
 		</script>
 	</body>
