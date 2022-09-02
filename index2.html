@@ -1,0 +1,70 @@
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>
+			.glyphicon
+			{
+				font-size: 72px;
+			}
+
+			#top, #center, #bottom
+			{
+				text-align: center;
+			}
+
+			#timerBox
+			{
+				border: 5px solid black;
+				font-size: 200%;
+			}
+
+			#buttonNTimer
+			{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body onkeyup="readKey(event)">
+	
+<div id = "top"> <span class="glyphicon glyphicon-arrow-up" id = "up"> </div>
+<div id = "center"><span id = "left" class="glyphicon glyphicon-arrow-left">    <span id = "right" class="glyphicon glyphicon-arrow-right"></div>
+		
+			<div id = "bottom"> <span id = "down" class="glyphicon glyphicon-arrow-down"></div>
+		<br>
+		<br>
+		<div id = "buttonNTimer"><button onClick = "start()">Go!</button> <span id = "timerBox">Timer Box</span></div>
+
+		<script>
+
+			//so I need a program that checks which key you are pressing every second, but "locks" after you press a key
+			//so on an interval of one second, its resets the variable to match the event,
+			//and resets the "lock"
+			//so a function on an interval.  Maybe one variable called 'randomDirection' and another called 'locked'.
+			function start(){
+			setInterval(everySecond(), 1000);
+		}
+
+			var directions = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
+
+			function everySecond(){
+				var randomNumber = Math.floor(Math.random() * 4) + 1; 
+				document.body.addEventListener("onkeyup", readKey(event, randomNumber));
+
+			}
+
+			function readKey(event, randomNumber){
+				console.log(event.key);
+				console.log(randomNumber);
+				//the first one works but randomNumber comes back undefined.  WTF!
+				if(event.key == directions[randomNumber])
+				{
+					score++;
+				}
+
+				body.removeEventListener("onkeyup", readKey(event));
+			}
+		</script>
+	</body>
+</html>
