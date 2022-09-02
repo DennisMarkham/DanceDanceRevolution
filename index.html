@@ -1,0 +1,125 @@
+<html>
+	<head>
+		  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<style>
+			.glyphicon
+			{
+				font-size: 72px;
+			}
+
+			#top, #center, #bottom
+			{
+				text-align: center;
+			}
+
+			#timerBox
+			{
+				border: 5px solid black;
+				font-size: 200%;
+			}
+
+			#buttonNTimer
+			{
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+	
+<div id = "top"> <span class="glyphicon glyphicon-arrow-up" id = "up"> </div>
+<div id = "center"><span id = "left" class="glyphicon glyphicon-arrow-left">    <span id = "right" class="glyphicon glyphicon-arrow-right"></div>
+		
+			<div id = "bottom"> <span id = "down" class="glyphicon glyphicon-arrow-down"></div>
+		<br>
+		<br>
+		<div id = "buttonNTimer"><button onClick = "start()">Go!</button> <span id = "timerBox">Timer Box</span></div>
+
+		<script>
+			currentNumber = 0;
+
+			directionsArray = ["up", "down", "left", "right"];
+
+			var startTime = 60;
+			function start(){
+				
+				document.getElementById("timerBox").innerText = startTime;
+				
+				var gameTime = setInterval(eachSecond, 1000);
+
+
+			}
+
+			function eachSecond(){
+				startTime--;
+				document.getElementById("timerBox").innerText = startTime;
+				if (startTime == 0)
+				{
+					clearInterval(gameTime);
+					//does work for some reason
+				}
+
+				var randomNumber = 0;
+
+			
+
+				function assignRandom(){
+				randomNumber = Math.floor(Math.random() * 4) + 1;
+				//should generate a number 1-4
+				
+				//this ensures it doesn't pick the same number twice	
+				if (randomNumber == currentNumber)
+				{
+					assignRandom();
+				}
+				else
+				{
+					currentNumber = randomNumber;
+				}
+			}
+
+				assignRandom();
+
+				switch(randomNumber)
+				{
+				case 1:
+				console.log("up turning red");
+				turnRed("up");
+				break;
+				case 2:
+				console.log("left turning red");
+				turnRed("left");
+				break;
+				case 3:
+				console.log("right turning red");
+				turnRed("right");
+				break;
+				case 4:
+				console.log("down turning red");
+				turnRed("down");
+				break;	
+				}
+
+			}
+
+			function turnRed(direction){
+
+				document.getElementById(direction).style.color = "red";
+
+				for (let i = 0; i < directionsArray.length; i++) 
+				{
+  if (directionsArray[i] != direction)
+  {
+  	document.getElementById(directionsArray[i]).style.color = "black";
+  }
+
+  //this basicall creates the visual effect I want except I need some kind of check
+  //to make sure it doesn't chose the same step twice.  Fudge this is hard
+}
+
+
+			}
+		</script>
+	</body>
+</html>
