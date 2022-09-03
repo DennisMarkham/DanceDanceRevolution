@@ -5,13 +5,21 @@
 			//current version seems to work...sort of, but finnick at best.
 
 			var randomNumber = 0;
-			var timerStart = 60;
-			var score = 0;
+			var timerStart;
+			var score;
 			var myInterval;
 				var directions = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
 			function start(){
+
+				//This is all for the purpose of restarting *****
+				timerStart = 60;
+				score = 0;
+
 				document.getElementById("timerBox").innerText = timerStart;
+				document.getElementById("score").innerText = score;
+				clearInterval(myInterval);
+				//******
 
 			myInterval = setInterval(everySecond, 1000);
 		}
@@ -37,8 +45,7 @@
 			function everySecond(){
 				timerStart --;
 
-				//this if statement is supposed to stop the game when it gets to zero.
-				//it just does not work.
+				
 				if (timerStart == 0)
 				{
 					endGame(); 
